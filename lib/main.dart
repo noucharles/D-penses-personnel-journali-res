@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Dépenses perosnnel',
+      title: 'Dépenses personnel',
       theme: ThemeData(
         //PrimarySwatch est mieux que PrimaryColor et génére plusieurs nuances
         // d'une couleur
@@ -67,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Dépenses perosnnel'),
+        title: Text('Dépenses personnel'),
         //backgroundColor: Colors.red,
         actions: [
           IconButton(
