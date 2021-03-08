@@ -13,7 +13,11 @@ class ChartBar extends StatelessWidget {
       children: [
         //FittedBox force un enfant à respecter l'espace qui l'es donné,
         // aucun débordement
-        FittedBox(child: Text("\$${spendingAmount.toStringAsFixed(0)}")),
+        Container(
+            height: 20,
+            child: FittedBox(
+                child: Text("\$${spendingAmount.toStringAsFixed(0)}"))
+        ),
         SizedBox(
           height: 4,
         ),
