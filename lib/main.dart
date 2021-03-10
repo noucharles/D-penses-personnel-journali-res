@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:personnal_expenses_app/widgets/chart.dart';
 import 'package:personnal_expenses_app/widgets/new_transaction.dart';
 import 'package:personnal_expenses_app/widgets/transaction_list.dart';
@@ -6,6 +7,10 @@ import 'package:personnal_expenses_app/widgets/transaction_list.dart';
 import 'models/transaction.dart';
 
 void main() {
+  //Pour choisir le mode ( portrait ou autre )
+  //WidgetsFlutterBinding.ensureInitialized();
+  //SystemChrome.setPreferredOrientations(
+  //    [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   runApp(MyApp());
 }
 
@@ -23,22 +28,28 @@ class MyApp extends StatelessWidget {
         accentColor: Colors.amber,
         fontFamily: 'Quicksand',
         errorColor: Colors.red,
-        textTheme: ThemeData.light().textTheme.copyWith(
-            title: TextStyle(
-                fontFamily: 'OpenSans',
-                fontSize: 18,
-                fontWeight: FontWeight.bold),
+        textTheme: ThemeData
+            .light()
+            .textTheme
+            .copyWith(
+          title: TextStyle(
+              fontFamily: 'OpenSans',
+              fontSize: 18,
+              fontWeight: FontWeight.bold),
           button: TextStyle(
             color: Colors.white,
           ),
         ),
         appBarTheme: AppBarTheme(
-          textTheme: ThemeData.light().textTheme.copyWith(
-                title: TextStyle(
-                  fontFamily: 'OpenSans',
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold),
-              ),
+          textTheme: ThemeData
+              .light()
+              .textTheme
+              .copyWith(
+            title: TextStyle(
+                fontFamily: 'OpenSans',
+                fontSize: 20,
+                fontWeight: FontWeight.bold),
+          ),
         ),
       ),
       debugShowCheckedModeBanner: false,
@@ -106,25 +117,48 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     //DateFormat.yMd('en_US').parse('1/10/2012');
+    final appBar = AppBar(
+      title: Text('Dépenses personnel'),
+      //backgroundColor: Colors.red,
+      actions: [
+        IconButton(
+          onPressed: () => _startAddNewTransaction(context),
+          icon: Icon(Icons.add),
+        )
+      ],
+    );
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Dépenses personnel'),
-        //backgroundColor: Colors.red,
-        actions: [
-          IconButton(
-            onPressed: () => _startAddNewTransaction(context),
-            icon: Icon(Icons.add),
-          )
-        ],
-      ),
+      appBar: appBar,
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Chart(_recentTransactions),
-            TransactionList(_userTransactions, _deleteTransaction),
+            Container(
+                height: (MediaQuery
+                    .of(context)
+                    .size
+                    .height -
+                    appBar.preferredSize.height -
+                    MediaQuery
+                        .of(context)
+                        .padding
+                        .top) *
+                    0.3,
+                child: Chart(_recentTransactions)),
+            Container(
+                height: (MediaQuery
+                    .of(context)
+                    .size
+                    .height -
+                    appBar.preferredSize.height -
+                    MediaQuery
+                        .of(context)
+                        .padding
+                        .top) *
+                    0.7,
+                child: TransactionList(_userTransactions, _deleteTransaction)),
           ],
         ),
       ),
