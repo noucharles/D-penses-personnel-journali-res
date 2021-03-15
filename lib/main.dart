@@ -66,11 +66,24 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver{
 
   bool _showCart = false;
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
   //Cette méthode est appelé chaque fois que le cycle de vie de l'application
   // change
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
+      print(state);
+  }
 
+  @override
+  void dispose() {
+    super.dispose();
+    WidgetsBinding.instance.removeObserver(this);
   }
 
   List<Transaction> get _recentTransactions {
